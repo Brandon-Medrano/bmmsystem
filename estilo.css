@@ -1,0 +1,43 @@
+body{
+	font-family: arial, sans-serif;
+	text-align: center;
+
+}
+#estilo{
+	width: 100%;
+	height: 250px;
+	background: url(123.jpg);
+	background-size: cover;
+}
+
+#est{
+	height: 100px;
+	width: 550px;
+	background: #377D7A; 
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 70px;
+	opacity: 0.6;
+	filter:alpha(opacity=80); 
+}
+
+#est ul li{
+	list-style: none;
+	display: inline;
+	font-weight: bold;
+	padding: 10px;
+
+
+
+}
+#est a{
+	color: white;
+	text-decoration: none;
+	padding: 10px;
+}
+#est ul li:hover{
+	background: red;
+	transition:all 0.45s;
+	opacity: 0.9;
+	filter:alpha(opacity=90);
+}
