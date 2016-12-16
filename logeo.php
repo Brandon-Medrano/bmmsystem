@@ -1,21 +1,23 @@
 <?php
-session_start();
-include_once('conex.php');
-if(!empty($POST['usuario']) and !empty($_POST['contra'])){
-   $usuario=limpiar($_POST['usuario']);
-   $contra=limpiar($POST['contra']);
-   $cueritos=mysql("SELECT * FROM usuarios WHERE (correo='".$usuario."' or ID='".$usuario."') and contraseña='".$contra."'"); 
-   if($dato=mysql_fetch_array($cueritos)){
-      if($dato['nivel']=='s'){
-          $_SESSION['username']=$dato['correo'];
-          $_SESSION['tipo_usu']=$dato['tipo'];
-          //founder bmmsystem brandon medrano 
-          if ($_SESSION['tipo_usu']=='a' or $_SESSION['tipo_usu']=='u'){
-          header('location:regis.php');
-          }          
-      }
-   }
-}
+		session_start();
+		include_once('php_conexion.php'); 
+		
+		if(!empty($_POST['usuario']) and !empty($_POST['contra'])){
+			$usuario=limpiar($_POST['usuario']);
+			$contra=limpiar($_POST['contra']);
+			$can=mysql_query("SELECT * FROM usuarios WHERE (usu='".$usuario."' or ced='".$usuario."') and con='".$contra."'");
+      if($dato=mysql_fetch_array($can)){
+				if($dato['estado']=='s'){
+					$_SESSION['username']=$dato['usu'];
+					$_SESSION['tipo_usu']=$dato['tipo'];
+          
+					///////////////////////////////
+					if($_SESSION['tipo_usu']=='a' or $_SESSION['tipo_usu']=='u'){						
+						header('location:Administrador.php');
+					}
+				}
+			}
+		}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,21 +69,23 @@ if(!empty($POST['usuario']) and !empty($_POST['contra'])){
                                                        </div>
                                        </div>
                </form>
-</div> 
+</div>
+    
 <?php
 		$act="1";
 		if(!empty($_POST['usuario']) and !empty($_POST['contra'])){
 			$usuario=limpiar($_POST['usuario']);
 			$contra=limpiar($_POST['contra']);
+
 			$can=mysql_query("SELECT * FROM usuarios WHERE (usu='".$usuario."' or ced='".$usuario."') and con='".$contra."'");
-            if(!$dato=mysql_fetch_array($cueritos)){
+			if(!$dato=mysql_fetch_array($can)){
 				if($act=="1"){
 					echo '<div class="alert alert-error" align="center"><strong>Usuario y Contraseña Incorrecta</strong></div>';
 				}else{
-					$nivel="0";
+					$act="0";
 				}
 			}else{
-				if($dato['nivel']=='e'){
+				if($dato['estado']=='n'){
 					echo '<div class="alert alert-error" align="center"><strong>Consulte con el Administrador</strong></div>';
 				}
 			}
